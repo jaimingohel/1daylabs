@@ -214,6 +214,22 @@ While testing an application there are some keywords that will quickly help us i
 encrypt, decrypt, crypt, AES, DES, SecretKeyFactory, secretKey, Cipher, InvalidKeyException
 etc.
 
+Let's search these keyword in the current APK to see if we actually land on j.java.
+
+#### DES
+
+![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-23%2000-25-52.png "DES")
+
+#### SecretKeyFactory
+
+![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-23%2000-29-17.png "SecretKeyFactory")
+
+#### InvalidKeyException
+
+![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-23%2000-31-05.png "InvalidKeyException")
+
+This is how we can quickly identify the classes responsible for encryption. 
+
 ### Back to our example
 
 We have the decryption method at our disposal. Now as per our understanding the application is taking user input and comparing it with the decrypted value of `k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ==`.
