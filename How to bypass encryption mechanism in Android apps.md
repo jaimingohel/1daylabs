@@ -279,7 +279,7 @@ As we can see Frida script is successfully running, this will start the applicat
 
 ![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-15%2018-03-56.png "Home screen")
 
-Frida's script has overridden the decryption method. We'll see the effect of this when we interact with the flag6 activity. So let's go to flag six activity, enter any value and click on **SUBMIT** button.
+Frida's script has overridden the decryption method. We'll see the effect of this when we interact with the flag6 activity. So let's go to flag six activity, I entered any value and clicked on **SUBMIT** button.
 
 ![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-22%2020-31-11.png "Hooked")
 
