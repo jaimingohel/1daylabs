@@ -2,7 +2,7 @@
 
 Hi Folks, hope you are well. As you know developers and pentesters are always into a cat and mouse game. No matter how much we want to deny the fact but we make each other's life a little tough. Mobile application developers these days implement an encryption mechanism in their applications to prevent tampering. 
 
-However, there are ways to bypass such a mechanism. I am going to demonstrate a scenario which can be useful when next time you come across such application behavior.
+However, there are ways to bypass such mechanisms. I am going to demonstrate a scenario which can be useful when next time you come across such application behavior.
 
 We are going to use Injured Android, [Injured Android](https://github.com/B3nac/InjuredAndroid) is a CTF style vulnerable application built to practice android testing. Huge shoutout to the author [B3nac](https://twitter.com/b3nac) for building this application.
 
@@ -10,7 +10,7 @@ We are going to use Injured Android, [Injured Android](https://github.com/B3nac/
 
 I have come across many application which highly relies on client-side encryption to add an extra layer of security for us to uncover. When you intercept the traffic using your favorite proxy tool all you'll see is encrypted text. It is because all of the requests are being encrypted on the client-side and sent to the server. The server will have the same encryption algorithm coded, so upon receiving the data it will decrypt and fetch the values.
 
-If you are into android testing or want to get started this article is for you.
+If you are into Android testing or want to get started then this article is for you.
 
 ## Installation
 
@@ -203,11 +203,11 @@ Let's decode it to find out the actual key.
 
 We got the key: `Captur3Th1s`
 
-Now this key can be useful if we want to decrypt the ciphertext using some custom java class or online tool. But we are going to go for a much simpler option.
+Now this key can be useful if we want to decrypt the ciphertext using some custom java class or online tool. But we are going for a much simpler option.
 
 ### Let's take a pause here
 
-While testing and application there are some keywords that will quickly help us identify classes, the algorithm used for the encryption. Although it can be a little tricky when code is obfuscated.
+While testing an application there are some keywords that will quickly help us in identifying classes, algorithm used for the encryption. Although it can be little tricky when code is obfuscated.
 
 #### Keywords
 
