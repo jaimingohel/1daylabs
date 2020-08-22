@@ -277,7 +277,7 @@ I enjoyed writting this, hope you enjoyed reading.
 
 **Happy hacking :-)**
 
-Twitter: [Jaimin Gohel](https://twitter.com/jaimin_gohel)
+Author: [Jaimin Gohel](https://twitter.com/jaimin_gohel)
 
 
 ## References
