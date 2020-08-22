@@ -4,7 +4,7 @@ Hi Folks, hope you are well. As you know developers and pentesters are always in
 
 However, there are ways to bypass such mechanisms. I am going to demonstrate a scenario which can be useful when next time you come across such application behavior.
 
-We are going to use Injured Android, [Injured Android](https://github.com/B3nac/InjuredAndroid) is a CTF style vulnerable application built to practice android testing. Huge shoutout to the author [B3nac](https://twitter.com/b3nac) for building this application.
+We are going to use Injured Android for the demonstration. [Injured Android](https://github.com/B3nac/InjuredAndroid) is a CTF style vulnerable application built to practice android testing. Huge shoutout to the author [B3nac](https://twitter.com/b3nac) for building this application.
 
 ## Why is it worth reading?
 
@@ -162,7 +162,7 @@ Class `j` has a byte array defined which takes value from `h.a()` method.
 
 ```private static final byte[] f2002a = h.a();```
 
-### h.java have the following code
+### h.java has the following code
 
 ```java
 package b3nac.injuredandroid;
@@ -289,7 +289,7 @@ By overriding the decryption method we have successfully decrypted the cipher te
 
 ![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-22%2020-34-54.png "Done")
 
-Now imagine, if this was a real application then you could have used the same technique to inject your payloads before it gets encrypted. This way we have bypassed the encryption logic written in the application to make the app tamper-free.
+Now imagine, if this was a real application then you could have used the same technique to inject your payloads before it gets encrypted and sent to server. This way we have bypassed the encryption logic written in the application to make the app tamper-free.
 
 I enjoyed writing this article, hope you enjoyed reading.
 
