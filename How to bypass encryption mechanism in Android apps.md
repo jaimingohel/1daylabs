@@ -267,7 +267,9 @@ Java.perform(function x() {
 });
 ```
 
-Time to run the Frida script.
+Method `a()` requires only one argument, the cipher text to decrypt. We have supplied the cipher text in the `this.a()` method it'll store the response in `ret` string vairable.
+
+#### Time to run the Frida script.
 
 `frida -U -f b3nac.injuredadnroid --no-pause -l decrypt.js`
 
