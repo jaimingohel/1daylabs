@@ -125,7 +125,7 @@ public final class FlagSixLoginActivity extends c {
 }
 ```
 
-Here, we can clearly see **submitFlag** method which will be called on click of **SUBMIT** button. It takes value from the text box(editText3), converts it to string and compares it with the output of `j.a("k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ==")` method. 
+Here, we can clearly see **submitFlag** method which will be called on click of **SUBMIT** button. It takes value from the text box(editText3), converts it to string and compares it with the output of `j.a("k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ==")` method. `k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ==` is our encrypted text.
 
 This application has some level of obfuscation used, we need to identify what `j.a()` method is? We have `b3nac/injuredandroid/j.java` class in our package.
 
@@ -214,7 +214,7 @@ While testing an application there are some keywords that will quickly help us i
 encrypt, decrypt, crypt, AES, DES, SecretKeyFactory, secretKey, Cipher, InvalidKeyException
 etc.
 
-Let's search these keyword in the current APK to see if we actually land on j.java.
+Let's search these keyword in the current APK to see if we actually land on `j.java` file.
 
 #### DES
 
@@ -242,7 +242,7 @@ To accomplish this task we are going to use [FRIDA](https://frida.re/), it is a 
 
 ### Frida on the roll
 
-Let's have a quick look at the following js code which will invoke the decryption method `a()` with our supplied value.
+Let's have a quick look at the following JS code which will invoke the decryption method `a()` with our supplied value. We have built this JS code to override the decryption method.
 
 #### decrypt.js
 
