@@ -2,23 +2,23 @@
 
 Hi Folks, hope you are well. As you know developers and pentesters are always into a cat and mouse game. No matter how much we want to deny the fact but we make each other's life a little tough. Mobile application developers these days implement an encryption mechanism in their applications to prevent tampering. 
 
-However, there are ways to bypass such mechanisms. I am going to demonstrate a scenario which can be useful when next time you come across such application behavior.
+However, there are ways to bypass such mechanisms. I am going to demonstrate a scenario which will help you when you come across such application behavior.
 
 We are going to use Injured Android for the demonstration. [Injured Android](https://github.com/B3nac/InjuredAndroid) is a CTF style vulnerable application built to practice android testing. Huge shoutout to the author [B3nac](https://twitter.com/b3nac) for building this application.
 
 ## Why is it worth reading?
 
-I have come across many application which highly relies on client-side encryption to add an extra layer of security for us to uncover. When you intercept the traffic using your favorite proxy tool all you'll see is encrypted text. It is because all of the requests are being encrypted on the client-side and sent to the server. The server will have the same encryption algorithm coded, so upon receiving the data it will decrypt and fetch the values.
+I have come across many applications that rely highly on client-side encryption, as an extra layer of security for us to uncover. When you intercept the traffic using your favorite proxy tool, all you'll see is encrypted text. It is because all of the requests are being encrypted on the client-side and sent to the server. The server will have the same encryption algorithm coded, so upon receiving the data, it will decrypt and fetch the values.
 
-If you are into Android testing or want to get started then this article is for you.
+If you are into Android testing or want to get started, this article is for you.
 
 ## Installation
 
-Download the latest build from [here](https://github.com/B3nac/InjuredAndroid/releases). I am using [genymotion](https://www.genymotion.com/) for this article. Spin up a virtual device using genymotion and install the APK by entering the following command.
+Download the latest build from [here](https://github.com/B3nac/InjuredAndroid/releases). I am using [genymotion](https://www.genymotion.com/) for this article. Get the virtual device rolling using genymotion and install the APK by entering the following command.
 
 `adb install injuredandroid.apk`
 
-After a successful installation, you'll see the following screen.
+After the successful installation, you'll see the following screen.
 
 ![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-15%2018-03-56.png "Home screen")
 
@@ -28,9 +28,9 @@ We are interested in **FLAG SIX - LOGIN 3**. This is how our FlagSix screen look
 
 ![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-15%2018-15-09.png "Flag six activity")
 
-I have tried entering random text and clicked on submit but nothing happened. Our next step is to look at the java source code to understand what is the functionality of this activity. 
+I have tried entering random text and clicked on submit but nothing happened. Our next step is to look at the java source code in order to understand the functionality of this activity. 
 
-Let's decompile the APK to fetch the application source code. I use [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF) for the sake of simplicity, it makes the task a lot easier. Below is the synopsis of our APK from MobSF.
+Let's decompile the APK to fetch the application source code. I used [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF) for the sake of simplicity, it makes the task a lot easier. Below is the synopsis of our APK from MobSF.
 
 
 ![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-15%2018-35-40.png "MobSF output")
@@ -39,9 +39,9 @@ There are a whole bunch of [activities](https://www.tutorialspoint.com/android/a
 
 ![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-15%2018-40-40.png "Activity List")
 
-## Developer Mode On
+## May the source(code) be with you
 
-Let's have a look at the code.
+Let's take a look at the code. Focus on `submitFlag()` Method.
 
 ```java
 package b3nac.injuredandroid;
@@ -125,15 +125,15 @@ public final class FlagSixLoginActivity extends c {
 }
 ```
 
-Now we can clearly see **submitFlag** method which will be called on click of **SUBMIT** button. It takes value from the text box, converts it to string and compares with output of `j.a("k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ==")` method. 
+Here, we can clearly see **submitFlag** method which will be called on click of **SUBMIT** button. It takes value from the text box(editText3), converts it to string and compares it with the output of `j.a("k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ==")` method. 
 
-This application has some level of obfuscation used, we need to identify what is `j.a()` method. We have `b3nac/injuredandroid/j.java` class in our package.
+This application has some level of obfuscation used, we need to identify what `j.a()` method is? We have `b3nac/injuredandroid/j.java` class in our package.
 
 ![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-16%2018-28-19.png "j. java")
 
 `a()` method has the following code, it is a decryption method. We can clearly figure out from the code that [DES](https://en.wikipedia.org/wiki/Data_Encryption_Standard) symmetric-key algorithm is used. **Congrats first milestone achieved!**
 
-The below code uses the value from `f2002a` to generate the secret key.
+The code below uses the value from `f2002a` to generate the secret key.
 
 ```java
     public static String a(String str) {
@@ -191,7 +191,7 @@ public class h {
 }
 ```
 
-`a()` method returns a byte array of the key, before that it is decoding a base64 string `Q2FwdHVyM1RoMXM=`
+Method `a()`  returns a byte array of the key, but before that it is decoding a base64 string `Q2FwdHVyM1RoMXM=`
 
 Let's decode it to find out the actual key.
 
@@ -203,11 +203,11 @@ Let's decode it to find out the actual key.
 
 We got the key: `Captur3Th1s`
 
-Now this key can be useful if we want to decrypt the ciphertext using some custom java class or online tool. But we are going for a much simpler option.
+Now this key can be used to decrypt the ciphertext using some custom java class or online tool. But we are going for a much simpler option.
 
 ### Let's take a pause here
 
-While testing an application there are some keywords that will quickly help us in identifying classes, algorithm used for the encryption. Although it can be little tricky when code is obfuscated.
+While testing an application there are some keywords that will quickly help us in identifying classes, algorithm used for the encryption. Although it can be little tricky, when the code is obfuscated.
 
 #### Keywords
 
@@ -232,9 +232,9 @@ This is how we can quickly identify the classes responsible for encryption.
 
 ### Back to our example
 
-We have the decryption method at our disposal. Now as per our understanding the application is taking user input and comparing it with the decrypted value of `k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ==`.
+We have the decryption method at our disposal. Now as per our understanding, the application is taking user input and comparing it with the decrypted value of `k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ==`.
 
-What if we can see what is the decrypted value of above mentioned ciphertext when the application is comparing the value? Yes!! we can definitely do that!
+What if, we can see what the decrypted value of aforementioned ciphertext is, when the application is comparing the value? Yes!! we can definitely do that!
 
 To accomplish this task we are going to use [FRIDA](https://frida.re/), it is a Dynamic instrumentation toolkit. Using Frida we can modify application logic on run-time, it allows us to inject our scripts into running processes. It is a must have toolkit in your android testing arsenal.
 
@@ -267,7 +267,7 @@ Java.perform(function x() {
 });
 ```
 
-Method `a()` requires only one argument, the cipher text to decrypt. We have supplied the cipher text in the `this.a()` method it'll store the response in `ret` string vairable.
+Method `a()` requires only one argument, the cipher text to decrypt. We have supplied the cipher text in the `this.a()` method it'll store the response in string variable `ret`.
 
 #### Time to run the Frida script.
 
@@ -275,23 +275,23 @@ Method `a()` requires only one argument, the cipher text to decrypt. We have sup
 
 ![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-22%2020-19-09.jpg "Frida invoke")
 
-As we can see Frida script is successfully running, this will start the application in our emulator.
+As we can see, Frida script is running successfully. This will start the application in our emulator.
 
 ![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-15%2018-03-56.png "Home screen")
 
-Frida's script has overridden the decryption method. We'll see the effect of this when we interact with the flag6 activity. So let's go to flag six activity, I entered any value and clicked on **SUBMIT** button.
+Frida script has overridden the decryption method. We'll see the effect of this when we interact with the flag6 activity. So let's go to flag six activity. Enter any value and click on **SUBMIT** button.
 
 ![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-22%2020-31-11.png "Hooked")
 
-There is no activity happened on the screen but if we go to our Frida console we'll have the following output along with the decrypted text `{This_Isn't_Where_I_Parked_My_Car}`
+There is no activity happening on the screen but if we go to our Frida console we'll have the following output along with the decrypted text `{This_Isn't_Where_I_Parked_My_Car}`
 
 By overriding the decryption method we have successfully decrypted the cipher text to plain text.
 
 ![](https://raw.githubusercontent.com/jaimingohel/1daylabs/master/assets/Screenshot%20from%202020-08-22%2020-34-54.png "Done")
 
-Now imagine, if this was a real application then you could have used the same technique to inject your payloads before it gets encrypted and sent to server. This way we have bypassed the encryption logic written in the application to make the app tamper-free.
+Now imagine, if this was a real application then you can use the same technique to inject your payloads before it gets encrypted and sent to server. This way we have bypassed the encryption logic written in the application to make the app tamper-free.
 
-I enjoyed writing this article, hope you enjoyed reading.
+I enjoyed writing this article and hope that you enjoyed reading it.
 
 **Happy hacking :-)**
 
